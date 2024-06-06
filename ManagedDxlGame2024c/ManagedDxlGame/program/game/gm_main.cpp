@@ -11,34 +11,41 @@
 #include "../dxlib_ext/dxlib_ext.h"
 #include "gm_main.h"
 
-#include "Bullet.h"
-#include "Player.h"
 
-Player* player_ = nullptr;
-Bullet* bullet_ = nullptr;
+std::list<int> datas;
+
+
 //------------------------------------------------------------------------------------------------------------
 // ゲーム起動時に１度だけ実行されます
 void gameStart()
 {
-    player_ = new Player(tnl::Vector3(500, 600, 0));
+    datas.emplace_back(0);
+    datas.emplace_back(1);
+    datas.emplace_back(15);
+    datas.emplace_back(30);
+    datas.emplace_back(60);
 
-    srand(time(0));
+    std::list<int>::iterator it = datas.begin();
+    while (it != datas.end())
+    {
+        if (*it == 30)
+        {
+            it = datas.erase(it);
+            continue;
+        }
+        it++;
+    }
 }
 
 //------------------------------------------------------------------------------------------------------------
 // 毎フレーム実行されます
 void gameMain(float delta_time)
 {
-    player_->update();
-    if (bullet_)
+    int y = 20;
+    for (auto t : datas)
     {
-        bullet_->update();
-    }
-    
-    player_->draw();
-    if (bullet_)
-    {
-        bullet_->draw();
+        DrawStringEx(0, y, -1, "%d", t);
+        y += 20;
     }
 }
 
