@@ -3,11 +3,11 @@
 
 
 
-class Bullet
+class EnemyFactory
 {
 public:
-    Bullet(tnl::Vector3 spawn_position);
-    ~Bullet();
+    EnemyFactory(tnl::Vector3 spawn_position);
+    ~EnemyFactory();
     tnl::Vector3 position_;
     bool is_active_ = true;
     void update();
